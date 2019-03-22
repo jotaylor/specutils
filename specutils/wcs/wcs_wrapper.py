@@ -1,6 +1,5 @@
 import gwcs
 import numpy as np
-from astropy.modeling.tabular import Tabular1D
 import astropy.units as u
 from gwcs import coordinate_frames as cf
 
@@ -55,10 +54,8 @@ class WCSWrapper:
                                          axes_type=('SPECTRAL',),
                                          axes_order=(0,))
         spec_frame = cf.SpectralFrame(unit=array.unit, axes_order=(0,))
-        forward_transform = Tabular1D(np.arange(len(array)), array.value)
-        forward_transform.inverse = Tabular1D(array.value, np.arange(len(array)))
 
-        tabular_gwcs = gwcs.wcs.WCS(forward_transform=forward_transform,
+        tabular_gwcs = gwcs.wcs.WCS(forward_transform=None,
                                     input_frame=coord_frame,
                                     output_frame=spec_frame)
 
